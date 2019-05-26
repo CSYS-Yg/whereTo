@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue中的插槽（solt）</title>
+    <script src='../vue.js'></script>
+</head>
+<body>
+<div id="root">
+    <body-content>
+        <!--slot='header'即定义插槽名字-->
+        <div class='header' slot='header'>header</div>
+        <div class='footer' slot='footer'>footer</div>
+    </body-content>
+</div>
+<script>
+    //插槽
+    Vue.component('body-content', {
+        template: '<div>' +
+        '<slot name="header">默认内容</slot>' +
+        '<div class="content">content</div>' +
+        '<slot name="footer">默认内容</slot>' +
+        '</div>'
+    })
+    var vm = new Vue({
+        el: '#root',
+    })
+</script>
+</body>
+</html>

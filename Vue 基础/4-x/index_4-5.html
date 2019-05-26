@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>非父子组件之间的传值（Bus/总线/发布订阅模式/观察者模式）</title>
+    <script src='../vue.js'></script>
+</head>
+<body>
+<div id="root">
+    <child content="Dell"></child>
+    <child content="Lee"></child>
+    <child content="x"></child>
+</div>
+<script>
+    //将bus属性挂载到Vue类上，即所有通过Vue创建或生成的Vue实例上都会含有Bus属性
+    Vue.prototype.bus = new Vue()
+
+    Vue.component('child', {
+        data: function () {
+            return {
+                selfContent: this.content
+            }
+        },
+        props: {
+            content: String
+        },
+        template: '<div @click="handleClick">{{selfContent}}</div>',
+        methods: {
+            handleClick: function () {
+                //向外触发事件
+                this.bus.$emit('change', this.selfContent)
+            }
+        },
+        //触发多次是因为会对每个child组件都进行一次监听
+        mounted: function () {
+            var this_ = this
+            //对事件的监听
+            this.bus.$on('change', function (msg) {
+                this_.selfContent = msg
+            })
+        }
+    })
+
+    var vm = new Vue({
+        el: '#root'
+    })
+</script>
+</body>
+</html>

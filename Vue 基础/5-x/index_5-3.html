@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>在Vue中使用Animate.css库</title>
+    <script src='../vue.js'></script>
+    <link rel=stylesheet type="text/css" href="../animate.css">
+    <style>
+        .fade-enter, .fade-leave-to {
+            opacity: 0;
+        }
+
+        .fade-enter-active, .fade-leave-active {
+            transition: opacity 3s;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <button @click="handleClick">切换</button>
+    <!-- 使用animate库 必须添加"使用库名 动画效果名",如enter-active-class="使用库名 动画效果名"  leave-active-class="使用库名 动画效果名"-->
+    <!-- type="transition" :duration="1000" -->
+    <transition
+            :duration="{enter:5000,leave:10000}"
+            name="fade"
+            appear
+            enter-active-class="animated swing fade-enter-active"
+            leave-active-class="animated jello fade-leave-active"
+            appear-active-class="animated swing"
+    >
+        <div v-show="show">HelloWorld</div>
+    </transition>
+</div>
+<script>
+    var vm = new Vue({
+        el: '#root',
+        data: {
+            show: true
+        },
+        methods: {
+            handleClick: function () {
+                this.show = !this.show
+            }
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件参数校验与非Props特性</title>
+    <script src='../vue.js'></script>
+</head>
+<body>
+<div id="root">
+    <child content="hell"></child>
+</div>
+<script>
+    Vue.component('child', {
+        //接收content参数不做限制
+        //props:['content'],
+        props: {
+            //接收content参数，并设置其属性
+            content: {
+                //指定参数类型为字符串，若需指定多个则定义为type:[Number,String]
+                type: String,
+                //接收的content属性必传，若为flase则可传可不传。
+                // required:flase,
+                //若content属性有传，则显示content数据。若不传递content属性则显示下面默认内容为content属性值
+                //default:'default value'
+                //自定义校验器，value即传入的内容。里面可写判断或过滤语句。
+                validator: function (value) {
+                    return (value.length > 5)
+                }
+            }
+        },
+        template: "<div>{{content}}</div>"
+    })
+    var vm = new Vue({
+        el: '#root',
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>在Vue中使用Animate.css库</title>
+    <script src='../vue.js'></script>
+    <link rel=stylesheet type="text/css" href="../animate.css">
+    <!--<style>-->
+    <!--/*@keyframes bounce-in {*/-->
+    <!--/*0% {*/-->
+    <!--/*transform: scale(0);*/-->
+    <!--/*}*/-->
+    <!--/*50% {*/-->
+    <!--/*transform: scale(1.5);*/-->
+    <!--/*}*/-->
+    <!--/*100% {*/-->
+    <!--/*transform: scale(1);*/-->
+    <!--/*}*/-->
+    <!--/*}*/-->
+
+    <!--/*.fade-enter-active {*/-->
+    <!--/*transform-origin: left center;*/-->
+    <!--/*animation: bounce-in 3s;*/-->
+    <!--/*}*/-->
+
+    <!--/*.fade-leave-active {*/-->
+    <!--/*transform-origin: left center;*/-->
+    <!--/*!*reverse 让动画反向执行*!*/-->
+    <!--/*animation: bounce-in 3s reverse;*/-->
+    <!--/*}*/-->
+
+    <!--.active {-->
+    <!--transform-origin: left center;-->
+    <!--animation: bounce-in 1s;-->
+    <!--}-->
+
+    <!--.leave {-->
+    <!--transform-origin: left center;-->
+    <!--/*reverse 让动画反向执行*/-->
+    <!--animation: bounce-in 1s reverse;-->
+    <!--}-->
+    <!--</style>-->
+</head>
+<body>
+<div id="root">
+    <button @click="handleClick">切换</button>
+    <!-- 过渡的动画效果，只要在<transition>标签内所有切换的显示与隐藏均会带有过渡效果-->
+    <!-- 定于name="fade" 则会自动添加class="fade-enter-active"和.fade-leave-active-->
+    <!-- 自定义class则 添加 enter-active-class="自定义CSS名"  leave-active-class="自定义CSS名"-->
+    <!--<transition-->
+    <!--name="fade"-->
+    <!--enter-active-class="active"-->
+    <!--leave-active-class="leave"-->
+    <!--&gt;-->
+    <!-- 使用animate库 必须添加"使用库名 动画效果名",如enter-active-class="使用库名 动画效果名"  leave-active-class="使用库名 动画效果名"-->
+    <transition
+            name="fade"
+            enter-active-class="animated swing"
+            leave-active-class="animated jello"
+    >
+        <div v-show="show">HelloWorld</div>
+    </transition>
+</div>
+<script>
+    var vm = new Vue({
+        el: '#root',
+        data: {
+            show: true
+        },
+        methods: {
+            handleClick: function () {
+                this.show = !this.show
+            }
+        }
+    })
+</script>
+</body>
+</html>

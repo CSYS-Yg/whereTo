@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue中CSS动画原理（过渡动画）</title>
+    <script src='../vue.js'></script>
+    <style>
+        /*绑定transition标签后，会生成在此标签内的div中，插入calss="v-enter-active v-enter-to"*/
+        /*当监控到transition标签切换时，会在此标签内的div中改变calss="v-leave-active v-leave-to"，然后逐步销毁*/
+        .v-enter,
+        .v-leave-to {
+            opacity: 0;
+        }
+        .v-enter-active,
+        .v-leave-active {
+            transition: opacity 3s;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <!--过渡的动画效果，只要在<transition>标签内所有切换的显示与隐藏均会带有过渡效果-->
+    <transition name="fade">
+        <div v-if="show">HelloWorld</div>
+    </transition>
+    <button @click="handleClick">切换</button>
+</div>
+<script>
+    var vm = new Vue({
+        el: '#root',
+        data: {
+            show: true
+        },
+        methods: {
+            handleClick: function () {
+                this.show = !this.show
+            }
+        }
+    })
+</script>
+</body>
+</html>

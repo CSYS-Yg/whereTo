@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue中的列表渲染与set方法</title>
+    <script src='../vue.js'></script>
+</head>
+<body>
+<div id="app">
+    <!--item表示键值的值，key则是键值名， index则是list的下标-->
+    <div v-for="(item,key,index) of userInfo">
+        {{item}}--{{key}}--{{index}}
+    </div>
+</div>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            userInfo:
+                {
+                    id: "1",
+                    text: "hello1",
+                    text1: "hello1",
+                    tex2: "hello1"
+                },
+        }
+    })
+</script>
+</body>
+</html>

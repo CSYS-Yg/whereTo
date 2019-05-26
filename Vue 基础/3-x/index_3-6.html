@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue中的样式绑定</title>
+    <script src='../vue.js'></script>
+    <style>
+        .activated {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <!--"{activated:isActivated}"在vue中表示为activated样式通过isActivated在data中的值是否为true显示或者为flase不显示-->
+    <!--<div @click="handleDivClick"-->
+    <!--:class="{activated:isActivated}"-->
+    <!--&gt;-->
+    <!--HelloWorld-->
+    <!--</div>-->
+    <!--<div @click="handleDivClick"-->
+    <!--:class="[activated,activatedOne]"-->
+    <!--&gt;-->
+    <!--HelloWorld-->
+    <!--</div>-->
+
+    <div @click="handleDivClick"
+         :style="[styleObj]"
+    >
+        HelloWorld
+    </div>
+
+</div>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            styleObj: {
+                color: "black",
+                fontSize: '20px'
+            }
+        },
+        methods: {
+            handleDivClick: function () {
+                this.styleObj.color = this.styleObj.color === 'black' ? "red" : 'black'
+            }
+        }
+    })
+</script>
+</body>
+</html>

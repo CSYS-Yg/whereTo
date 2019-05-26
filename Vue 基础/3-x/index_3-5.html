@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>计算属性的setter和getter</title>
+    <script src='../vue.js'></script>
+</head>
+<body>
+<div id="app">
+    {{fullName}}
+</div>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            firstName: 'Dell',
+            lastName: 'Lee'
+        },
+        computed: {
+            fullName: {
+                //当firstName或lastName属性值改变时触发
+                get: function () {
+                    return this.firstName + " " + this.lastName;
+                },
+                //设置fullName属性值时触发,当属性值发生改变时，会触发上面的get方法进行计算返回
+                set: function (vlaue) {
+                    var arr = vlaue.split(" ");
+                    this.firstName = arr[0];
+                    this.lastName = arr[1];
+                }
+            }
+        }
+    })
+</script>
+</body>
+</html>

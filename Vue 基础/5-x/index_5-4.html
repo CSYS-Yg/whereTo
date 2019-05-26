@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue中的Js动画与Velocity.js的结合</title>
+    <script src='../vue.js'></script>
+    <script src='../velocity.js'></script>
+</head>
+<body>
+<div id="root">
+    <button @click="handleClick">切换</button>
+    <!-- 入场动画 @before-enter @enter @after-enter -->
+    <!-- 出场动画 @before-leave @leave @after-leave -->
+    <transition
+            name="fade"
+            @before-enter="handleBeforeEnter"
+            @enter="handleEnter"
+            @after-enter="handleAfterEnter"
+    >
+        <div v-show="show">HelloWorld</div>
+    </transition>
+</div>
+<script>
+    var vm = new Vue({
+        el: '#root',
+        data: {
+            show: true
+        },
+        methods: {
+            handleClick: function () {
+                this.show = !this.show
+            },
+            //@before-enter动画钩子，在隐藏到显示之前的一瞬间触发。
+            //会默认传递一个参数el，el是指被动画标签<transition>包裹的div元素
+            handleBeforeEnter: function (el) {
+                // el.style.color = 'red'
+                el.style.opacity = 0;
+            },
+            //当@before-enter动画钩子执行结束后，下一步运行动画时触发@enter动画钩子，即所有动画写在此内部。
+            //会默认传递两个参数，el：动画标签<transition>包裹的div元素；done：回调函数,一定要手动调用done()回调函数，告诉Vue动画执行完成。
+            handleEnter: function (el, done) {
+                // setTimeout(() => {
+                //     el.style.color = 'green'
+                // }, 2000)
+                // setTimeout(() => {
+                //     done()
+                // }, 4000)
+                Velocity(el, {
+                    opacity: 1
+                }, {
+                    duration: 1000,
+                    complete: done,
+                })
+            },
+            //当@enter动画钩子执行回调事件后触发@after-enter动画钩子
+            //会默认传递一个参数el，el是指被动画标签<transition>包裹的div元素
+            handleAfterEnter: function (el) {
+                // el.style.color = '#000'
+                console.log("动画结束")
+            }
+        }
+    })
+</script>
+</body>
+</html>

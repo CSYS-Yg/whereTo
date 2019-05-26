@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>动态组件与v-once指令</title>
+    <script src='../vue.js'></script>
+</head>
+<body>
+<div id="root">
+     <!--v-once当页面组件循环销毁与生成时,使用此指令将组件存入缓存,提高整体性能-->
+    <child-one v-once v-if="type === 'child-one'"></child-one>
+    <child-two v-once v-if="type === 'child-two'"></child-two>
+    <!--动态组件会根据 :is 的变化自动加载不同名字的组件，以下方法会不断销毁与生成子组件-->
+    <!--动态组件-->
+    <!--<component :is="type"></component>-->
+    <!--正常写法-->
+    <!--<child-one v-if="type === 'child-one'"></child-one>-->
+    <!--<child-two v-if="type === 'child-two'"></child-two>-->
+    <button @click="handleBtnClick">切换</button>
+</div>
+<script>
+    Vue.component('child-one', {
+        template: '<div>chaid-one</div>'
+    })
+
+    Vue.component('child-two', {
+        template: '<div>chaid-two</div>'
+    })
+
+    var vm = new Vue({
+        el: '#root',
+        data: {
+            type: 'child-one'
+        },
+        methods: {
+            handleBtnClick: function () {
+                this.type = this.type === 'child-one' ? 'child-two' : 'child-one'
+            }
+        }
+    })
+</script>
+</body>
+</html>

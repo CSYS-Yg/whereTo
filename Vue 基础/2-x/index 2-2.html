@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src='../vue.js'></script>
+</head>
+<body>
+<div id="app">{{content}}</div>
+<script>
+    var app = new Vue({
+        el:'#app',
+        data:{
+            content:'hello world1'
+        }
+    })
+
+    /**
+     * @author Yx
+     * @date 2018/11/27
+     * @Description:  对于事件的绑定
+    */
+    setTimeout(function () {
+        app.$data.content='bye world'
+    },2000)
+</script>
+</body>
+</html>
